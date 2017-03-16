@@ -1,0 +1,113 @@
+#contain{
+    position: relative;
+}
+#bg{
+    background: url("1121340.jpg") no-repeat;
+    width: 100%;
+    height: 576px;
+    background-size: 100%;
+    position:relative;
+}
+#btn{
+    text-align: center;
+    opacity: 0;/*相当于隐藏*/
+    transition: opacity 2s;/*从清晰到模糊平稳过渡*/
+    width: 50%;
+    height: 50%;
+    position:absolute;/*使背景模糊文字不模糊必须使#btn脱离文档流;*/
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    padding-top: 190px;
+}
+h1{
+    font-size: 60px;
+    /*按文字裁剪*/
+    -webkit-background-clip: text;
+    /*文字的颜色使用背景色,默认值为transparent*/
+    -webkit-text-fill-color: transparent;
+    /*设置一个背景色*/
+    background-color: #8dff2f;
+    /*设置渐变的背景，按从左到右渐变*/
+    background-image:-webkit-linear-gradient(left, #e33dff 30%, #fdff25 50%,#59FFE4 70%);
+    background-size: 200%;
+    /*给背景添加动画改变位置*/
+    -webkit-animation: shine 5s infinite;
+}
+a{text-decoration: none;
+    font-size: 40px;
+    /*添加动画改变字体颜色*/
+    -webkit-animation: colorchange 2s infinite;
+}
+@-webkit-keyframes shine {
+    from {
+        background-position: 100%;
+    }
+    to {
+        background-position:0;
+    }
+}
+@-webkit-keyframes colorchange {
+    from {
+        color: #79c966;
+    }
+    to {
+        color:  #3739FF;
+    }
+
+}
+
+#btn::before {/*before与after父元素是btn,省察元素可以看出来*/
+    content: '';/*有内容，内容为空白*/
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;/*设置为100%则左右都有边且为3px,若不设width则左右边框合并为一个且为6px*/
+    height: 0;/*开始时左右长度为0*/
+    border: 3px solid ghostwhite;
+    border-width: 0 3px;
+    overflow: hidden;
+    transition: all .8s;
+    box-sizing: border-box;
+}
+
+ #btn::after {
+     content: '';
+     position: absolute;
+     left: 50%;
+     top: 0;
+     height: 100%;
+     width: 0;/*开始时上下长度为0*/
+     border: 3px solid ghostwhite;
+     border-width: 3px 0;
+     overflow: hidden;
+     visibility: hidden;
+     transition: all .8s;
+     box-sizing: border-box;}
+
+#contain:hover #btn::before {
+    height: 100%;
+    visibility: visible;
+    top: 0;
+}
+
+#contain:hover #btn::after {
+    width: 100%;
+    visibility: visible;
+    left: 0;
+}
+
+#contain:hover #bg {
+    -webkit-filter: blur(15px);/*使背景模糊文字不模糊必须使#bg;*/
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+}
+#contain:hover #btn{
+    opacity: 1;/*相当于显示*/
+
+}
+
